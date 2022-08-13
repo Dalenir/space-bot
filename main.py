@@ -6,11 +6,13 @@ import os
 
 
 async def main():
-    bot = await SpaceBot.rise(os.environ.get('INPUT_ORGANISATION_URL'), os.environ.get('INPUT_APP_ID'),
-                              os.environ.get('INPUT_APP_SECRET'))
-    bot.send_message(os.environ.get('INPUT_CHAT_TITLE'), os.environ.get('INPUT_MESSAGE'))
-    print("::set-output name=result::Done!")
-
+    try:
+        bot = await SpaceBot.rise(os.environ.get('INPUT_ORGANISATION_URL'), os.environ.get('INPUT_APP_ID'),
+                                  os.environ.get('INPUT_APP_SECRET'))
+        await bot.send_message(os.environ.get('INPUT_CHAT_TITLE'), os.environ.get('INPUT_MESSAGE'))
+        print("::set-output name=result::Done!")
+    except Exception as ex:
+        logging.error(ex)
 
 if __name__ == '__main__':
     asyncio.run(main())
