@@ -21,3 +21,9 @@ jobs:
         with:
           name: Report
           path: flake8_report
+      - name: Telegram message
+        if:
+        uses: actions/upload-artifact@v3
+        with:
+          name: Report
+          path: flake8_report
