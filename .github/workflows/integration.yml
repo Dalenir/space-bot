@@ -1,0 +1,21 @@
+name: Smoke Test
+on: [ push ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Prepare fake file
+      - name: Self test
+        id: selftest
+
+        uses: Dalenir/space-bot@master
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          app_secret: ${{ secrets.APP_SECRET }}
+          organisation_url: ${{ secrets.ORGANISATION_URL }}
+          chat_title: general
+
+      - name: Check outputs
+        run: |
+          test "${{ steps.selftest.outputs.result }}" == "Done!"

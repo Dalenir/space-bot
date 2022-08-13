@@ -1,0 +1,23 @@
+name: Auto tests
+on: [ push, pull_request ]
+jobs:
+  Tests:
+    name: all_tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - uses: actions/checkout@v3
+      - name: Style Check
+        run: |
+          pip install flake8==4.0.1
+          pip install flake8-html
+          flake8 --exclude=*.pyc,venv/.,__init__.py --max-line-length=120 --format=html --htmldir=flake8_report
+      - name: Report upload
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: Report
+          path: flake8_report

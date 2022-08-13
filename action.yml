@@ -1,0 +1,26 @@
+name: "Space-bot"
+description: "Simple app for JetBrains Space notification"
+author: "Neveric Eluvia"
+inputs:
+  app_id:
+    description: "ID from authentication page in app settings"
+    required: true
+  app_secret:
+    description: "Secret from authentication page in app settings"
+    required: true
+  organisation_url:
+    description: "Base url of your organisation"
+    required: true
+  chat_title:
+    description: "Chat title to send message to"
+    required: false
+  message:
+    description: "Any message to send. Default to [ACTION WAS SERVED, M'LORD]."
+    required: false
+    default: "[ACTION WAS SERVED, M'LORD]"
+outputs:
+  result:
+    description: "Result string"
+runs:
+  using: "docker"
+  image: "Dockerfile"
