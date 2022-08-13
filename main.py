@@ -7,7 +7,6 @@ import os
 
 async def main():
     try:
-        print("To infinity and beyond!")
         bot = await SpaceBot.rise(os.environ.get('INPUT_ORGANISATION_URL'), os.environ.get('INPUT_APP_ID'),
                                   os.environ.get('INPUT_APP_SECRET'))
         await bot.send_message(os.environ.get('INPUT_CHAT_TITLE'), os.environ.get('INPUT_MESSAGE'))
