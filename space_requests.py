@@ -13,6 +13,7 @@ async def make_request(url: str, method: str, headers, data=None):
             async with session.post(url=url, data=data, headers=headers) as response:
                 resp = await response.read()
                 try:
+                    print(json.loads(resp))
                     return json.loads(resp)
                 except JSONDecodeError:
                     print('There is no response')
