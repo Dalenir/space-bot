@@ -1,6 +1,7 @@
 
 import base64
 import json
+from typing import Union
 
 from space_requests import make_request
 
@@ -17,7 +18,7 @@ class SpaceBot:
         self.project_statuses = None
 
     @classmethod
-    async def rise(cls, base_url, bot_id, bot_secret, main_project: str | None = None):
+    async def rise(cls, base_url, bot_id, bot_secret, main_project: Union[str, None] = None):
         bot = SpaceBot(base_url, bot_id, bot_secret)
         await bot.auth()
         if main_project:
