@@ -1,5 +1,5 @@
 name: Smoke Test
-on: [ pull_request ]
+on: [ push, pull_request ]
 jobs:
   build:
     name: Smoke Testing
