@@ -2,7 +2,7 @@ name: Auto tests
 on: [ push, pull_request ]
 jobs:
   Tests:
-    name: all_tests
+    name: Main Tests
     runs-on: ubuntu-latest
     steps:
       - name: Python 3.10
