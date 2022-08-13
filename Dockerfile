@@ -1,4 +1,4 @@
-FROM python:3.11-rc-alpine AS builder
+FROM python:3.11.0rc1-slim-buster AS builder
 COPY . /app
 WORKDIR /app
 
