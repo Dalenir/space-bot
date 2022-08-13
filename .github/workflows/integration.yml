@@ -5,11 +5,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Prepare fake file
       - name: Self test
         id: selftest
 
-      - uses: Dalenir/space-bot@master
+        uses: Dalenir/space-bot@master
         with:
           app_id: ${{ secrets.APP_ID }}
           app_secret: ${{ secrets.APP_SECRET }}
