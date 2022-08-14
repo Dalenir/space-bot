@@ -20,7 +20,6 @@ async def main():
                     logging.error(ex)
         await asyncio.gather(*asyncio.all_tasks() - {asyncio.current_task()})
         print("::set-output name=result::Done!")
-        asyncio.lo
     except Exception as ex:
         logging.error(ex)
 
