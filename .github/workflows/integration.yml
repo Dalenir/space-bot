@@ -11,7 +11,7 @@ jobs:
 
         uses: Dalenir/space-bot@main
         with:
-          app_id: ${{ secrets.APP_ID }
+          app_id: ${{ secrets.APP_ID }}
           app_secret: ${{ secrets.APP_SECRET }}
           organisation_url: ${{ secrets.ORGANISATION_URL }}
           chat_title: general
