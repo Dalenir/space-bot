@@ -15,16 +15,13 @@ async def main():
         issue_numbers, commit_titles = os.environ.get('INPUT_ISSUE_NUMBERS'), os.environ.get('INPUT_COMMITS_TITLES')
         if (issue_numbers or commit_titles) and os.environ.get('INPUT_TAG') and os.environ.get('INPUT_PROJECT'):
             iss_list = list()
-            logging.warning(f'{commit_titles} LIST')
             if issue_numbers:
-                iss_list += [iss for iss in issue_numbers.split(" ")]
+                iss_list += map(int, [iss for iss in issue_numbers.split(" ")])
             if commit_titles:
-                logging.warning(commit_titles)
                 iss_list += map(int, [re.sub("[^0-9]", "", comm) for
                                       comm in [b for c in [a.split(" ") for
                                                            a in commit_titles.split(",")] for
                                                b in c if b] if re.sub("[^0-9]", "", comm)])
-            logging.warning(iss_list)
             for iss in iss_list:
                 try:
                     asyncio.create_task(bot.update_issue_tag(int(iss), os.environ.get('INPUT_TAG')))
