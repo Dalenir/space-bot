@@ -26,6 +26,10 @@ inputs:
   tag:
     description: "Any tag to mark issues. Required project name and target issues to work."
     required: false
+  commits_titles:
+    description: "String of commits titles from logs separated by two pipes '||'. 
+    Digits in titles will be used as issue numbers alongside with 'issue_numbers param'"
+    required: false
 outputs:
   result:
     description: "Result string"
