@@ -1,6 +1,7 @@
 
 import base64
 import json
+import logging
 from typing import Union
 
 from space_requests import make_request
@@ -106,8 +107,40 @@ class SpaceBot:
         issues_list = (await make_request(url, 'get', headers))['data']
         return issues_list
 
-    async def update_issue_tag(self, board_name, issue_number, tag_name):
-        issues = await self.get_issues_from_board(board_name)
+    async def get_all_issues(self):
+        url = f'{self.url}/api/http/projects/id:4DLAL13CHwI8/planning/issues?sorting=CREATED&descending=false'
+        headers = {
+            'Accept': 'application/json',
+            'Authorization': f'Bearer {self.token}'
+        }
+        issues_list = (await make_request(url, 'get', headers))['data']
+        return issues_list
+
+    async def create_new_tag(self, tag_name: str, project_name: Union[str, None] = None):
+        if project_name and project_name != self.project_info["name"]:
+            proj = project_name
+            bot = await SpaceBot.rise(self.url, self.id, self.secret, proj)
+            newtag = await bot.create_new_tag(tag_name)
+        else:
+            url = f"{self.url}/api/http/projects/{self.project_info['id']}/planning/tags"
+            headers = {
+                'Accept': 'application/json',
+                'Authorization': f'Bearer {self.token}',
+                'Content-Type': 'application/json'
+            }
+            data = json.dumps({
+                'path': [tag_name]
+            })
+            newtag = await make_request(url, 'post', headers, data)
+        return newtag
+
+    async def update_issue_tag(self, issue_number, tag_name, board_name: Union[str, None] = None):
+        if self.project_info is None:
+            raise Exception('No main project is found!')
+        if board_name:
+            issues = await self.get_issues_from_board(board_name)
+        else:
+            issues = await self.get_all_issues()
         issue_id, tag_id = str(), str()
         for issue in issues:
             if issue['number'] == issue_number:
@@ -117,6 +150,9 @@ class SpaceBot:
             if tag['name'] == tag_name:
                 tag_id = tag['id']
                 break
+        if not tag_id:
+            newtag = await self.create_new_tag(tag_name)
+            tag_id = newtag["id"]
         if issue_id and tag_id:
             url = f'{self.url}/api/http/projects/{self.project_info["id"]}/planning/issues/{issue_id}/tags/{tag_id}'
             headers = {
@@ -126,11 +162,11 @@ class SpaceBot:
             await make_request(url, 'post', headers)
         else:
             if issue_id:
-                print('There is no tag at this name')
+                logging.error('There is no tag at this name')
             elif tag_id:
-                print(f'There is no issue number {issue_number} at board {board_name}')
+                logging.error(f'There is no issue number {issue_number} at board {board_name}')
             else:
-                print('Tag name and issue number are invalid!')
+                logging.error('Tag name and issue number are invalid!')
 
     async def base_board_info(self, board_id):
         url = f'{self.url}/api/http/projects/planning/boards/id:{board_id}?$fields=info(columns(columns(name))),id,name'

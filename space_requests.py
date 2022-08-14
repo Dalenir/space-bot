@@ -15,7 +15,6 @@ async def make_request(url: str, method: str, headers, data=None):
                 try:
                     return json.loads(resp)
                 except JSONDecodeError:
-                    print('There is no response')
                     return None
         elif method == 'get':
             async with session.get(url=url, data=data, headers=headers) as response:
@@ -27,5 +26,4 @@ async def make_request(url: str, method: str, headers, data=None):
                 try:
                     return json.loads(resp)
                 except JSONDecodeError:
-                    print('There is no response')
                     return None

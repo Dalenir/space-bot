@@ -15,9 +15,17 @@ inputs:
     description: "Chat title to send message to"
     required: false
   message:
-    description: "Any message to send. Default to [ACTION WAS SERVED, M'LORD]."
+    description: "Any message to send. Required chat title to work."
     required: false
-    default: "[ACTION WAS SERVED, M'LORD]"
+  project:
+    description: "Name of the project."
+    required: false
+  issue_numbers:
+    description: "Space separated list of target issues. Required project name to work."
+    required: false
+  tag:
+    description: "Any tag to mark issues. Required project name and target issues to work."
+    required: false
 outputs:
   result:
     description: "Result string"
