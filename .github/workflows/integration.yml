@@ -15,6 +15,7 @@ jobs:
           app_secret: ${{ secrets.APP_SECRET }}
           organisation_url: ${{ secrets.ORGANISATION_URL }}
           chat_title: general
+          message: Space-bot action testing was succsessfull!
 
       - name: Check outputs
         run: |
