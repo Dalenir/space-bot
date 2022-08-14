@@ -9,7 +9,7 @@ jobs:
       - name: Self test
         id: selftest
 
-        uses: Dalenir/space-bot@main
+        uses: Dalenir/space-bot@dev
         with:
           app_id: ${{ secrets.APP_ID }}
           app_secret: ${{ secrets.APP_SECRET }}
