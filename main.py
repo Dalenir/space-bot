@@ -15,6 +15,7 @@ async def main():
         issue_numbers, commit_titles = os.environ.get('INPUT_ISSUE_NUMBERS'), os.environ.get('INPUT_COMMITS_TITLES')
         if (issue_numbers or commit_titles) and os.environ.get('INPUT_TAG') and os.environ.get('INPUT_PROJECT'):
             iss_list = list()
+            logging.warning(f'{commit_titles} LIST')
             if issue_numbers:
                 iss_list += [iss for iss in issue_numbers.split(" ")]
             if commit_titles:
