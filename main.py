@@ -21,7 +21,7 @@ async def main():
                 print('commi here')
                 iss_list += map(int, [re.sub("[^0-9]", "", comm) for
                                       comm in [b for c in [a.split(" ") for
-                                                           a in commit_titles.split("||")] for
+                                                           a in commit_titles.split(",")] for
                                                b in c if b] if re.sub("[^0-9]", "", comm)])
             for iss in iss_list:
                 try:
