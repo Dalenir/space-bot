@@ -11,10 +11,13 @@ jobs:
 
         uses: Dalenir/space-bot@main
         with:
-          app_id: ${{ secrets.APP_ID }}
+          app_id: ${{ secrets.APP_ID }
           app_secret: ${{ secrets.APP_SECRET }}
           organisation_url: ${{ secrets.ORGANISATION_URL }}
           chat_title: general
+          project: ${{ secrets.MAIN_PROJECT }}
+          issue_numbers: ${{ secrets.ISS_NUMBERS }}
+          tag: Cool tag
           message: Space-bot action testing was succsessfull!
 
       - name: Check outputs
