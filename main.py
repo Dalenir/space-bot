@@ -18,12 +18,11 @@ async def main():
             if issue_numbers:
                 iss_list += [iss for iss in issue_numbers.split(" ")]
             if commit_titles:
-                iss_list += [re.sub("[^0-9]", "", comm) for
+                iss_list += map(int, [re.sub("[^0-9]", "", comm) for
                              comm in [b for c in [a.split(" ") for
                                                   a in commit_titles.split("||")] for
-                                      b in c if b] if re.sub("[^0-9]", "", comm)]
-            for iss in os.environ.get('INPUT_ISSUE_NUMBERS').split("||"):
-                iss = iss.replace(" ")
+                                      b in c if b] if re.sub("[^0-9]", "", comm)])
+            for iss in iss_list:
                 if iss.isdigit():
                     try:
                         asyncio.create_task(bot.update_issue_tag(int(iss), os.environ.get('INPUT_TAG')))
