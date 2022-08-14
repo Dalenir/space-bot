@@ -18,20 +18,21 @@ async def main():
             if issue_numbers:
                 iss_list += [iss for iss in issue_numbers.split(" ")]
             if commit_titles:
+                print('commi here')
                 iss_list += map(int, [re.sub("[^0-9]", "", comm) for
-                             comm in [b for c in [a.split(" ") for
-                                                  a in commit_titles.split("||")] for
-                                      b in c if b] if re.sub("[^0-9]", "", comm)])
+                                      comm in [b for c in [a.split(" ") for
+                                                           a in commit_titles.split("||")] for
+                                               b in c if b] if re.sub("[^0-9]", "", comm)])
             for iss in iss_list:
-                if iss.isdigit():
-                    try:
-                        asyncio.create_task(bot.update_issue_tag(int(iss), os.environ.get('INPUT_TAG')))
-                    except Exception as ex:
-                        logging.error(ex)
+                try:
+                    asyncio.create_task(bot.update_issue_tag(int(iss), os.environ.get('INPUT_TAG')))
+                except Exception as ex:
+                    logging.error(ex)
         await asyncio.gather(*asyncio.all_tasks() - {asyncio.current_task()})
         print("::set-output name=result::Done!")
     except Exception as ex:
         logging.error(ex)
+
 
 if __name__ == '__main__':
     asyncio.run(main())
