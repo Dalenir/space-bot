@@ -108,7 +108,7 @@ class SpaceBot:
         return issues_list
 
     async def get_all_issues(self):
-        url = f'{self.url}/api/http/projects/id:4DLAL13CHwI8/planning/issues?sorting=CREATED&descending=false'
+        url = f'{self.url}/api/http/projects/id:{self.project_info["id"]}/planning/issues?sorting=CREATED&descending=true'
         headers = {
             'Accept': 'application/json',
             'Authorization': f'Bearer {self.token}'
